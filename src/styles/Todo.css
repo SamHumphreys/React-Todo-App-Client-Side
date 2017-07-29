@@ -1,0 +1,7 @@
+.todo {
+  border: 1px solid black;
+}
+
+.todo > span {
+  margin-left: 20px;
+}

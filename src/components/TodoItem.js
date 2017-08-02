@@ -7,8 +7,6 @@ const TodoItem = (props) => {
     <div className='todo-item'>
       {props.data.content}
     </div>
-
-
   )
 }
 

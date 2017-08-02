@@ -27,6 +27,10 @@ export default class Todo extends React.Component {
     return completedPercent + ' % completed';
   };
 
+  addTodoItem () {
+    console.log('addTodoItem');
+  }
+
   showTodoItems () {
     if (this.props.selected === this.props.data.id) {
       if (this.props.data.todoItems.length === 0) {
@@ -44,11 +48,11 @@ export default class Todo extends React.Component {
             })}
           </div>
         );
-      };
+      }
     } else {
       return <div className='todo-items-list'>
       </div>;
-    };
+    }
   };
 
   render () {

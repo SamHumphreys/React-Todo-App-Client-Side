@@ -11,6 +11,7 @@ export default class Todos extends React.Component {
       todos: null,
       selected: null
     };
+    this.showTodos = this.showTodos.bind(this);
   };
 
   componentWillMount() {
@@ -19,6 +20,17 @@ export default class Todos extends React.Component {
         this.setState({todos: JSON.parse(todos.toString())});
       });
     });
+  };
+
+  showTodos () {
+    this.state.todos.map((todo) => {
+      return (
+        <Todo key={todo.id}
+                      data={todo}
+                      onTodoClick={(index) => this.handleTodoClick(index)}
+                      selected={this.state.selected} />
+      )
+    })
   };
 
   handleTodoClick (selected) {
@@ -32,12 +44,7 @@ export default class Todos extends React.Component {
 
     return (
       <div className='todo-list'>
-        {this.state.todos.map((todo) => {
-          return <Todo key={todo.id}
-                        data={todo}
-                        onTodoClick={(index) => this.handleTodoClick(index)}
-                        selected={this.state.selected} />
-        })}
+        {this.showTodos()}
       </div>
     );
   };

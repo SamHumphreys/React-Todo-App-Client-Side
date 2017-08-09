@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TodosList from './components/TodosList';
+import ShowTodos from './components/show-todos';
 
 class App extends React.Component {
 
   render () {
     return (
       <div className='App'>
-        <TodosList />
+        <ShowTodos />
       </div>
     )
   }

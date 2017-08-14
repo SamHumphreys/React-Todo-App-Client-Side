@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import http from 'http';
+import Todo from './components/Todo';
 
 class Todos extends React.Component {
 
   constructor() {
     super();
     this.state = {
-      todos: null
+      todos: null,
+      selectedTodo: null
     }
   };
 
@@ -20,16 +22,19 @@ class Todos extends React.Component {
     });
   };
 
+  handleTodoClick (selectedTodo) {
+    if (this.state.selectedTodo !== selectedTodo) {
+      this.setState({selectedTodo});
+    };
+  };
+
   listTodos () {
     return (
       this.state.todos.map((todo) => {
-        console.log(todo);
-        return (
-          <div className='todo'
-                key={todo.id}>
-            {todo.title}
-          </div>
-        )
+        return <Todo key={todo.id}
+                      data={todo}
+                      selectedTodo={this.state.selectedTodo}
+                      handleTodoClick={(id) => this.handleTodoClick(id)} />
       })
     );
   }

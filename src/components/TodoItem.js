@@ -5,6 +5,7 @@ export default function TodoItem (props) {
   return (
     <div className='todo-item'>
       {props.data.content}
+      <button>done!</button>
     </div>
   )
 };

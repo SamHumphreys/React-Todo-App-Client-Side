@@ -11,10 +11,6 @@ export default class Todo extends React.Component {
     }
   };
 
-  componentWillMount () {
-    console.log(this.state.todo);
-  }
-
   completedPercent() {
     const todoItemsCount = this.state.todo.todoItems.length;
     if (!todoItemsCount) {

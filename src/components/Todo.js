@@ -2,15 +2,26 @@ import React from 'react';
 import TodoItem from './TodoItem';
 import '../styles/Todo.css'
 
-export default function Todo (props) {
+export default class Todo extends React.Component {
 
-  const completedPercent = () => {
-    const todoItemsCount = props.data.todoItems.length;
+  constructor(props) {
+    super(props);
+    this.state = {
+      todo: this.props.todo
+    }
+  };
+
+  componentWillMount () {
+    console.log(this.state.todo);
+  }
+
+  completedPercent() {
+    const todoItemsCount = this.state.todo.todoItems.length;
     if (!todoItemsCount) {
       return <span>No items</span>;
     };
     let totalCompleted = 0;
-    props.data.todoItems.forEach((item) => {
+    this.state.todo.todoItems.forEach((item) => {
       if(item.complete) {
         totalCompleted ++;
       }
@@ -21,12 +32,16 @@ export default function Todo (props) {
     );
   };
 
-  const showTodoItems = () => {
-    if (props.selectedTodo === props.data.id) {
+  addTodoItem() {
+    console.log('add todoitem clicked');
+  };
+
+  showTodoItems() {
+    if (this.props.selectedTodo === this.state.todo.id) {
       return (
         <div className='todo-items'>
-          <button>add todo item</button>
-          {props.data.todoItems.map((todoItem) => {
+          <button onClick={()=> {this.addTodoItem()}}>add todo item</button>
+          {this.state.todo.todoItems.map((todoItem) => {
             return (
               <TodoItem className='todo-item'
                           key={todoItem.id}
@@ -38,12 +53,14 @@ export default function Todo (props) {
     };
   };
 
-  return (
-    <div className='todo'
-          onClick={() => props.handleTodoClick(props.data.id)}>
-      {props.data.title}
-      {completedPercent()}
-      {showTodoItems()}
-    </div>
-  )
+  render () {
+    return (
+      <div className='todo'
+            onClick={() => this.props.handleTodoClick(this.state.todo.id)}>
+        {this.state.todo.title}
+        {this.completedPercent()}
+        {this.showTodoItems()}
+      </div>
+    );
+  };
 };

@@ -16,7 +16,6 @@ export default function Todo (props) {
       }
     });
     const completedPercent = Math.floor(totalCompleted / todoItemsCount * 100);
-    console.log(completedPercent);
     return (
       <span>{completedPercent}% completed!</span>
     );

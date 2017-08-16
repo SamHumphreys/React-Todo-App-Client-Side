@@ -5,8 +5,8 @@ import Todo from './components/Todo';
 
 class Todos extends React.Component {
 
-  constructor() {
-    super();
+  constructor () {
+    super ();
     this.state = {
       todos: null,
       selectedTodo: null
@@ -32,13 +32,16 @@ class Todos extends React.Component {
     return (
       this.state.todos.map((todo) => {
         return <Todo key={todo.id}
-                      data={todo}
+                      todo={todo}
                       selectedTodo={this.state.selectedTodo}
                       handleTodoClick={(id) => this.handleTodoClick(id)} />
       })
     );
-  }
+  };
 
+  handleAddTodoClick () {
+    console.log('add todo clicked');
+  };
 
   render () {
     if (!this.state.todos) {
@@ -50,6 +53,7 @@ class Todos extends React.Component {
     };
     return (
       <div className='todos-list'>
+        <button onClick={() => this.handleAddTodoClick()}>Add Todo</button>
         {this.listTodos()}
       </div>
     )

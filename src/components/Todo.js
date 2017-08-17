@@ -1,6 +1,8 @@
 import React from 'react';
 import TodoItem from './TodoItem';
+import http from 'http';
 import '../styles/Todo.css'
+
 
 export default class Todo extends React.Component {
 
@@ -29,7 +31,24 @@ export default class Todo extends React.Component {
   };
 
   addTodoItem() {
-    console.log('add todoitem clicked');
+    const newTodoItem = prompt('enter Todo Item Details...');
+    const postContent = {'content': newTodoItem};
+    console.log(postContent);
+    const options = {
+      hostname: 'localhost',
+      path: ':8000/api/todos/' + this.state.todo.id + '/items',
+      method: 'POST',
+      headers: {
+        'Content-Type': "application/x-www-form-urlencoded"}
+    };
+    const req = http.request(options, (res) => {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.on('error', (err) => console.error(err));
+      res.on('data', (data) => console.log(data));
+
+    });
+    req.write(postContent)
+    req.end();
   };
 
   showTodoItems() {

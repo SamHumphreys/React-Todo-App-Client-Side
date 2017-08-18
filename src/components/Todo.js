@@ -32,22 +32,19 @@ export default class Todo extends React.Component {
 
   addTodoItem() {
     const newTodoItem = prompt('enter Todo Item Details...');
-    const postContent = {'content': newTodoItem};
-    console.log(postContent);
     const options = {
       hostname: 'localhost',
       path: ':8000/api/todos/' + this.state.todo.id + '/items',
       method: 'POST',
       headers: {
-        'Content-Type': "application/x-www-form-urlencoded"}
+        'content-type': "application/x-www-form-urlencoded"}
     };
     const req = http.request(options, (res) => {
-      res.setHeader('Access-Control-Allow-Origin', '*');
       res.on('error', (err) => console.error(err));
-      res.on('data', (data) => console.log(data));
+      res.on('data', (data) => console.log(data.toString()));
 
     });
-    req.write(postContent)
+    req.write('content='+newTodoItem);
     req.end();
   };
 

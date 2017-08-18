@@ -16,9 +16,13 @@ class Todos extends React.Component {
   componentWillMount () {
     http.get('http://localhost:8000/api/todos', (res) => {
       res.on('error', (err) => console.error(err));
+      let resData = '';
       res.on('data', (todos) => {
-        this.setState({todos: JSON.parse(todos.toString())});
+        resData += todos.toString();
       });
+      res.on('end', () => {
+        this.setState({todos: JSON.parse(resData)})
+      })
     });
   };
 

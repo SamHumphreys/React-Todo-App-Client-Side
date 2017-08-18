@@ -43,9 +43,11 @@ export default class Todo extends React.Component {
     const req = http.request(options, (res) => {
       res.on('error', (err) => console.error(err));
       res.on('data', (data) => {
-        console.log(data.toString());
+        const newItem = JSON.parse(data);
+        let newTodo = JSON.parse(JSON.stringify(this.state.todo));
+        newTodo.todoItems.push(newItem);
+        this.setState({todo: newTodo});
       });
-
     });
     req.write('content='+newTodoItem);
     req.end();

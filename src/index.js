@@ -53,7 +53,7 @@ class Todos extends React.Component {
     };
     return (
       <div className='todos-list'>
-        <button onClick={() => this.handleAddTodoClick()}>Add Todo</button>
+        <button onClick={() => this.handleAddTodoClick()}>Add a task...</button>
         {this.listTodos()}
       </div>
     )

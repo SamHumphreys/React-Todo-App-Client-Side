@@ -32,6 +32,7 @@ export default class Todo extends React.Component {
 
   addTodoItem() {
     const newTodoItem = prompt('enter Todo Item Details...');
+    if (!newTodoItem) return;
     const options = {
       hostname: 'localhost',
       path: ':8000/api/todos/' + this.state.todo.id + '/items',
@@ -41,7 +42,9 @@ export default class Todo extends React.Component {
     };
     const req = http.request(options, (res) => {
       res.on('error', (err) => console.error(err));
-      res.on('data', (data) => console.log(data.toString()));
+      res.on('data', (data) => {
+        console.log(data.toString());
+      });
 
     });
     req.write('content='+newTodoItem);
@@ -52,7 +55,7 @@ export default class Todo extends React.Component {
     if (this.props.selectedTodo === this.state.todo.id) {
       return (
         <div className='todo-items'>
-          <button onClick={()=> {this.addTodoItem()}}>add todo item</button>
+          <button onClick={()=> {this.addTodoItem()}}>Add a step...</button>
           {this.state.todo.todoItems.map((todoItem) => {
             return (
               <TodoItem className='todo-item'

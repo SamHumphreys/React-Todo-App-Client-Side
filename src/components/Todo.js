@@ -1,6 +1,5 @@
 import React from 'react';
 import TodoItems from './TodoItems';
-import http from 'http';
 import '../styles/Todo.css'
 
 
@@ -30,46 +29,6 @@ export default class Todo extends React.Component {
     );
   };
 
-  addTodoItem() {
-    const newTodoItem = prompt('enter Todo Item Details...');
-    if (!newTodoItem) return;
-    const options = {
-      hostname: 'localhost',
-      path: ':8000/api/todos/' + this.state.todo.id + '/items',
-      method: 'POST',
-      headers: {
-        'content-type': "application/x-www-form-urlencoded"}
-    };
-    const req = http.request(options, (res) => {
-      res.on('error', (err) => console.error(err));
-      res.on('data', (data) => {
-        const newItem = JSON.parse(data);
-        let newTodo = JSON.parse(JSON.stringify(this.state.todo));
-        newTodo.todoItems.push(newItem);
-        this.setState({todo: newTodo});
-      });
-    });
-    req.write('content='+newTodoItem);
-    req.end();
-  };
-
-  showTodoItems() {
-    if (this.props.selectedTodo === this.state.todo.id) {
-      return (
-        <div className='todo-items'>
-          <button onClick={()=> {this.addTodoItem()}}>Add a step...</button>
-          {this.state.todo.todoItems.map((todoItem) => {
-            return (
-              <TodoItems className='todo-item'
-                          key={todoItem.id}
-                          data={todoItem} />
-            )
-          })}
-        </div>
-      );
-    };
-  };
-
   render () {
     return (
       <div className='todo'
@@ -79,7 +38,6 @@ export default class Todo extends React.Component {
         <TodoItems todoItems={this.state.todo.todoItems}
                     todoId={this.state.todo.id}
                     selectedTodo={this.props.selectedTodo} />
-
       </div>
     );
   };

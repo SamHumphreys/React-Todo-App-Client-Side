@@ -1,5 +1,5 @@
 import React from 'react';
-import TodoItem from './TodoItem';
+import TodoItems from './TodoItems';
 import http from 'http';
 import '../styles/Todo.css'
 
@@ -60,7 +60,7 @@ export default class Todo extends React.Component {
           <button onClick={()=> {this.addTodoItem()}}>Add a step...</button>
           {this.state.todo.todoItems.map((todoItem) => {
             return (
-              <TodoItem className='todo-item'
+              <TodoItems className='todo-item'
                           key={todoItem.id}
                           data={todoItem} />
             )
@@ -76,7 +76,9 @@ export default class Todo extends React.Component {
             onClick={() => this.props.handleTodoClick(this.state.todo.id)}>
         {this.state.todo.title}
         {this.completedPercent()}
-        {this.showTodoItems()}
+        <TodoItems todoItems={this.state.todo.todoItems}
+                    selectedTodo={this.props.selectedTodo} />
+        // {this.showTodoItems()}
       </div>
     );
   };

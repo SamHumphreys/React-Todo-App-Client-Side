@@ -77,8 +77,9 @@ export default class Todo extends React.Component {
         {this.state.todo.title}
         {this.completedPercent()}
         <TodoItems todoItems={this.state.todo.todoItems}
+                    todoId={this.state.todo.id}
                     selectedTodo={this.props.selectedTodo} />
-        // {this.showTodoItems()}
+
       </div>
     );
   };

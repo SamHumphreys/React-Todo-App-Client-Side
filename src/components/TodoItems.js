@@ -5,10 +5,9 @@ export default class TodoItems extends React.Component {
 
   constructor (props) {
     super (props);
-    console.log(props);
     this.state = {
       todoItems: props.todoItems
-    }
+    };
   };
 
   checkIfDone (todoItem) {
@@ -19,22 +18,30 @@ export default class TodoItems extends React.Component {
     }
   };
 
+  showTodoItems () {
+    if (this.props.todoId === this.props.selectedTodo) {
+      return (
+        <div className='todo-items'>
+          <button>Add a step...</button>
+          <div className='todo-items-list'>
+            {this.state.todoItems.map((todoItem) => {
+              return <div className='todoItem'
+                            key={todoItem.id}>
+                {todoItem.content}
+                {this.checkIfDone(todoItem)}
+              </div>
+            })}
+          </div>
+        </div>
+
+      )
+    } else {return null}
+  }
+
   render () {
     return (
-      <div className='todo-items-list'>
-        {this.state.todoItems.map((todoItem) => {
-          console.log(todoItem);
-          return (
-            <div className='todoItem'
-                  key={todoItem.id}>
-              {todoItem.content}
-              {this.checkIfDone(todoItem)}
-            </div>
+      this.showTodoItems()
 
-
-          )
-        })}
-      </div>
     )
   }
 };

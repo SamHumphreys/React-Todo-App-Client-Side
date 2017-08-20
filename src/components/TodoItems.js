@@ -13,10 +13,36 @@ export default class TodoItems extends React.Component {
 
   checkIfDone (todoItem) {
     if (!todoItem.complete) {
-      return (<button>Mark as done..</button>)
+      return (<button onClick={() => this.handleTodoItemDone(todoItem.todoId, todoItem.id)}>
+                  Mark as done...
+              </button>)
     } else {
       return (<span>Completed!</span>)
     }
+  };
+
+  handleTodoItemDone (todoId, itemId) {
+    const options = {
+      hostname: 'localhost',
+      path: ':8000/api/todos/' + todoId + '/items/' + itemId,
+      method: 'PUT',
+      Accept: '*/*',
+      headers: {
+        'Content-Type' : 'application/x-www-form-urlencoded'
+      }
+    }
+    const req = http.request(options, (res) => {
+      let resData = '';
+      res.on('error', (err) => console.error(err));
+      res.on('data', (data) => {
+        resData += data.toString();
+      });
+      res.on('end', () => {
+        console.log(resData);
+      });
+    });
+    req.write('complete=true');
+    req.end();
   };
 
   handleAddTodoItemClicked () {

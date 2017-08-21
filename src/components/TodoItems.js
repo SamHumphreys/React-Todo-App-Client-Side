@@ -26,7 +26,6 @@ export default class TodoItems extends React.Component {
       hostname: 'localhost',
       path: ':8000/api/todos/' + todoId + '/items/' + itemId,
       method: 'PUT',
-      Accept: '*/*',
       headers: {
         'Content-Type' : 'application/x-www-form-urlencoded'
       }
@@ -38,7 +37,13 @@ export default class TodoItems extends React.Component {
         resData += data.toString();
       });
       res.on('end', () => {
-        console.log(resData);
+        const parsedData = JSON.parse(resData);
+        let todoItems = this.state.todoItems.slice();
+        const itemIndex = todoItems.findIndex((a) => {
+          return a.id === parsedData.id
+        });
+        todoItems[itemIndex] = parsedData;
+        this.setState({todoItems});
       });
     });
     req.write('complete=true');
@@ -70,6 +75,18 @@ export default class TodoItems extends React.Component {
   };
 
   showTodoItems () {
+    const itemsList = this.state.todoItems.slice();
+    let incompletedItems = [];
+    let doneItems = [];
+    itemsList.forEach((item) => {
+      if (!item.complete) {
+        incompletedItems.push(item)
+      } else {
+        doneItems.push(item);
+      };
+    });
+    const sortedItemsList = incompletedItems.concat(doneItems);
+    console.log(sortedItemsList);
     if (this.props.todoId === this.props.selectedTodo) {
       return (
         <div className='todo-items'>
@@ -77,8 +94,8 @@ export default class TodoItems extends React.Component {
             Add a step...
           </button>
           <div className='todo-items-list'>
-            {this.state.todoItems.map((todoItem) => {
-              return <div className='todo-item'
+            {sortedItemsList.map((todoItem) => {
+              return <div className='todoItem'
                             key={todoItem.id}>
                 {todoItem.content}
                 {this.checkIfDone(todoItem)}

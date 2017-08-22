@@ -71,14 +71,27 @@ export default class TodoItems extends React.Component {
     });
     req.write('content='+newTodoItem);
     req.end();
+  };
 
+  completedPercent () {
+    const itemsLength = this.state.todoItems.length;
+    if (!itemsLength) {
+      return <span>No steps in this task...</span>
+    }
+    let totalCompleted = 0;
+    this.state.todoItems.forEach((item) => {
+      if (item.complete) totalCompleted ++;
+    })
+    const completedPercent = Math.floor(totalCompleted / itemsLength * 100);
+    return (
+      <span>{completedPercent}% completed!</span>
+    );
   };
 
   showTodoItems () {
-    const itemsList = this.state.todoItems.slice();
     let incompletedItems = [];
     let doneItems = [];
-    itemsList.forEach((item) => {
+    this.state.todoItems.forEach((item) => {
       if (!item.complete) {
         incompletedItems.push(item)
       } else {
@@ -86,7 +99,6 @@ export default class TodoItems extends React.Component {
       };
     });
     const sortedItemsList = incompletedItems.concat(doneItems);
-    console.log(sortedItemsList);
     if (this.props.todoId === this.props.selectedTodo) {
       return (
         <div className='todo-items'>
@@ -109,7 +121,10 @@ export default class TodoItems extends React.Component {
 
   render () {
     return (
-      this.showTodoItems()
+      <div>
+        {this.completedPercent()}
+        {this.showTodoItems()}
+      </div>
     )
   }
 };

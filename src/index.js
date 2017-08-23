@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import http from 'http';
 import Todo from './components/Todo';
+import reqRes from './logic/rest-req';
 
 class Todos extends React.Component {
 
@@ -14,15 +14,9 @@ class Todos extends React.Component {
   };
 
   componentWillMount () {
-    http.get('http://localhost:8000/api/todos', (res) => {
-      res.on('error', (err) => console.error(err));
-      let resData = '';
-      res.on('data', (todos) => {
-        resData += todos.toString();
-      });
-      res.on('end', () => {
-        this.setState({todos: JSON.parse(resData)})
-      })
+    const path = 'http://localhost:8000/api/todos';
+    reqRes.get(path, (todos) => {
+      this.setState({todos});
     });
   };
 

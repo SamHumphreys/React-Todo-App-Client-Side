@@ -1,15 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Todos from './components/Todos';
-import reqRes from './logic/rest-req';
+import reqRes from './logic/req-res';
 
 class App extends React.Component {
 
   constructor () {
     super ();
     this.state = {
-      todos: null,
-      selectedTodo: null
+      todos: null
     }
   };
 
@@ -23,10 +22,22 @@ class App extends React.Component {
     });
   };
 
+  addTodo (newTodo) {
+    const path = ':8000/api/todos';
+    const method = 'POST';
+    const payload = 'title=' + newTodo;
+    reqRes.request (path, method, payload, (newTodo) => {
+      const arrNewTodo = [newTodo];
+      const newStateTodos = this.state.todos.concat(arrNewTodo);
+      this.setState({todos: newStateTodos});
+    });
+  };
+
   render () {
     if (this.state.todos) {
       return (
-        <Todos todos={this.state.todos}/>
+        <Todos todos={this.state.todos}
+                addTodo={(newTodo) => this.addTodo(newTodo)} />
       );
     } else {
       return (
@@ -35,44 +46,6 @@ class App extends React.Component {
     }
   };
 };
-
-//   handleTodoClick (selectedTodo) {
-//     if (this.state.selectedTodo !== selectedTodo) {
-//       this.setState({selectedTodo});
-//     };
-//   };
-//
-//   listTodos () {
-//     return (
-//       this.state.todos.map((todo) => {
-//         return <Todo key={todo.id}
-//                       todo={todo}
-//                       selectedTodo={this.state.selectedTodo}
-//                       handleTodoClick={(id) => this.handleTodoClick(id)} />
-//       })
-//     );
-//   };
-//
-//   handleAddTodoClick () {
-//     console.log('add todo clicked');
-//   };
-//
-//   render () {
-//     if (!this.state.todos) {
-//       return (
-//         <div className='show-todos'>
-//           loading spinner...
-//         </div>
-//       )
-//     };
-//     return (
-//       <div className='todos-list'>
-//         <button onClick={() => this.handleAddTodoClick()}>Add a task...</button>
-//         {this.listTodos()}
-//       </div>
-//     )
-//   }
-// };
 
 ReactDOM.render(
   <App />,

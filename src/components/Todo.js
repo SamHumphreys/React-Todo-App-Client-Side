@@ -2,14 +2,27 @@ import React from 'react';
 import '../styles/Todo.css'
 
 const Todo = (props) => {
-  console.log(props);
 
   const showTodo = () => {
     return (
       <div onClick={() => props.handleTodoClick(props.data.id)}>
-        {props.data.title}
+        {props.data.title} {completedPercent()}
       </div>
     );
+  };
+
+  const completedPercent = () => {
+    console.log(props);
+    if (!props.data.todoItems.length) {
+      return <span>No steps for this task</span>;
+    };
+    let completedCount = 0;
+    props.data.todoItems.forEach((item) => {
+      if (item.complete) {completedCount ++};
+    });
+    const percentComplete = Math.floor(completedCount / props.data.todoItems.length * 100);
+    console.log(percentComplete);
+    return <span>{percentComplete}% completed!</span>
   };
 
   const showItems = () => {

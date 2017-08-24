@@ -12,7 +12,6 @@ const Todo = (props) => {
   };
 
   const completedPercent = () => {
-    console.log(props);
     if (!props.data.todoItems.length) {
       return <span>No steps for this task</span>;
     };

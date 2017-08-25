@@ -20,22 +20,16 @@ export default class Todos extends React.Component {
     };
   };
 
-  showTodos () {
-    return (
-      this.props.todos.map((todo) => {
-        return <Todo key={todo.id}
-                      data={todo}
-                      handleTodoClick={(id) => this.todoSelected(id)}
-                      selectedTodo={this.state.selectedTodo} />
-      })
-    );
-  };
-
   render () {
     return (
       <div className='todos-list'>
         <button onClick={() => this.addTodo()}>Add a task...</button>
-        {this.showTodos()}
+        {this.props.todos.map((todo) => {
+          return <Todo key={todo.id}
+                    data={todo}
+                    handleTodoClick={(id) => this.todoSelected(id)}
+                    selectedTodo={this.state.selectedTodo} />
+        })}
       </div>
     );
   };

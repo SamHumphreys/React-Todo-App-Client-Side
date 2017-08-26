@@ -5,3 +5,8 @@
 .todo > span {
   margin-left: 20px;
 }
+
+.archived-todo {
+  background: gainsboro;
+  opacity: .5;
+}

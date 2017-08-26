@@ -33,11 +33,22 @@ class App extends React.Component {
     });
   };
 
+  archiveTodo (id) {
+    // (path, method, payload, callback)
+    const path = ':8000/api/todos/' + id;
+    const method = 'PUT';
+    const payload = 'archived=true';
+    reqRes.request(path, method, payload, (updatedTodo) => {
+      console.log(updatedTodo);
+    })
+  }
+
   render () {
     if (this.state.todos) {
       return (
         <Todos todos={this.state.todos}
-                addTodo={(newTodo) => this.addTodo(newTodo)} />
+                addTodo={(newTodo) => this.addTodo(newTodo)}
+                archiveTodo={(id) => this.archiveTodo(id)} />
       );
     } else {
       return (

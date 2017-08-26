@@ -2,6 +2,7 @@ import React from 'react';
 import '../styles/Todo.css'
 
 const Todo = (props) => {
+  console.log(props);
 
   const showTodo = () => {
     return (
@@ -12,6 +13,7 @@ const Todo = (props) => {
   };
 
   const completedPercent = () => {
+    if (props.data.archived) return <span>Archived :D</span>;
     if (!props.data.todoItems.length) {
       return <span>No steps for this task</span>;
     };
@@ -20,7 +22,11 @@ const Todo = (props) => {
       if (item.complete) {completedCount ++};
     });
     const percentComplete = Math.floor(completedCount / props.data.todoItems.length * 100);
-    console.log(percentComplete);
+    if (percentComplete === 100) {
+      return  <button onClick={() => props.archiveTodo(props.data.id)}>
+                Done! Archive?
+              </button>;
+    }
     return <span>{percentComplete}% completed!</span>
   };
 
@@ -29,14 +35,19 @@ const Todo = (props) => {
   };
 
   if (props.selectedTodo === props.data.id) {
+    console.log(props);
     return (
-      <div className='todo'>
+      <div className={'todo' + ((props.data.archived) ? ' archived-todo': null)}>
         {showTodo()}
         {showItems()}
       </div>
-    )
+    );
   } else {
-    return showTodo()
+    return (
+      <div className={'todo' + ((props.data.archived) ? ' archived-todo': null)}>
+        {showTodo()}
+      </div>
+    );
   }
 };
 

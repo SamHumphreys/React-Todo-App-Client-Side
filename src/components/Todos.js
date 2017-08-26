@@ -28,7 +28,8 @@ export default class Todos extends React.Component {
           return <Todo key={todo.id}
                     data={todo}
                     handleTodoClick={(id) => this.todoSelected(id)}
-                    selectedTodo={this.state.selectedTodo} />
+                    selectedTodo={this.state.selectedTodo}
+                    archiveTodo={this.props.archiveTodo} />
         })}
       </div>
     );

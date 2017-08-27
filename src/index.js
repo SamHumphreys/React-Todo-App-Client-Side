@@ -34,12 +34,15 @@ class App extends React.Component {
   };
 
   archiveTodo (id) {
-    // (path, method, payload, callback)
     const path = ':8000/api/todos/' + id;
     const method = 'PUT';
     const payload = 'archived=true';
     reqRes.request(path, method, payload, (updatedTodo) => {
       console.log(updatedTodo);
+      const stateTodos = this.state.todos.concat();
+      console.log('state', this.state.todos);
+      console.log();
+
     })
   }
 

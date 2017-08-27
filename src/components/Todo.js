@@ -37,14 +37,14 @@ const Todo = (props) => {
   if (props.selectedTodo === props.data.id) {
     console.log(props);
     return (
-      <div className={'todo' + ((props.data.archived) ? ' archived-todo': null)}>
+      <div className={'todo' + ((props.data.archived) ? ' archived-todo': '')}>
         {showTodo()}
         {showItems()}
       </div>
     );
   } else {
     return (
-      <div className={'todo' + ((props.data.archived) ? ' archived-todo': null)}>
+      <div className={'todo' + ((props.data.archived) ? ' archived-todo': '')}>
         {showTodo()}
       </div>
     );

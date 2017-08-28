@@ -12,10 +12,16 @@ const Todo = (props) => {
     );
   };
 
+  const archiveIt = (status) => {
+    return <button onClick={() => props.archiveTodo(props.data.id)}>
+      {status}
+    </button>
+  }
+
   const completedPercent = () => {
     if (props.data.archived) return <span>Archived</span>;
     if (!props.data.todoItems.length) {
-      return <span>No steps for this task</span>;
+      return <span>No steps for this task... {archiveIt('Archive?')}</span>;
     };
     let completedCount = 0;
     props.data.todoItems.forEach((item) => {
@@ -23,9 +29,7 @@ const Todo = (props) => {
     });
     const percentComplete = Math.floor(completedCount / props.data.todoItems.length * 100);
     if (percentComplete === 100) {
-      return  <button onClick={() => props.archiveTodo(props.data.id)}>
-                Done! Archive?
-              </button>;
+      return archiveIt('Looks like this is done! Archive?');
     }
     return <span>{percentComplete}% completed!</span>
   };

@@ -13,7 +13,7 @@ const Todo = (props) => {
   };
 
   const completedPercent = () => {
-    if (props.data.archived) return <span>Archived :D</span>;
+    if (props.data.archived) return <span>Archived</span>;
     if (!props.data.todoItems.length) {
       return <span>No steps for this task</span>;
     };

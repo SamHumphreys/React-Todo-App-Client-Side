@@ -18,7 +18,6 @@ class App extends React.Component {
       todos.sort((a,b) => {
         return a.id - b.id
       });
-      let activeTodos = [];
       this.setState({todos});
     });
   };
@@ -39,11 +38,12 @@ class App extends React.Component {
     const method = 'PUT';
     const payload = 'archived=true';
     reqRes.request(path, method, payload, (updatedTodo) => {
-      console.log(updatedTodo);
       const stateTodos = this.state.todos.concat();
-      console.log('state', this.state.todos);
-      console.log();
-
+      const updatedIndex = stateTodos.findIndex((element) => {
+        return element.id === updatedTodo.id;
+      });
+      stateTodos[updatedIndex] = updatedTodo;
+      this.setState({todos: stateTodos});
     })
   }
 

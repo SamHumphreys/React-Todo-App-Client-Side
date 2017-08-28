@@ -18,6 +18,7 @@ class App extends React.Component {
       todos.sort((a,b) => {
         return a.id - b.id
       });
+      let activeTodos = [];
       this.setState({todos});
     });
   };

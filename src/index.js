@@ -61,10 +61,16 @@ class App extends React.Component {
     });
   };
 
+  queryServer (action, data) {
+    console.log('action', action);
+    console.log('data', data);
+  };
+
   render () {
     if (this.state.todos) {
       return (
         <Todos todos={this.state.todos}
+                sendIt={(action, data) => this.queryServer(action, data)}
                 addTodo={(newTodo) => this.addTodo(newTodo)}
                 archiveTodo={(id) => this.archiveTodo(id)}
                 addTodoItem={(id, itemText) => this.addTodoItem(id, itemText)} />

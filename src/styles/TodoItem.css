@@ -2,3 +2,8 @@
   margin-left: 20px;
   border: 1px solid red;
 }
+
+.archived-item {
+  background: green;
+  opacity: 0.5;
+}

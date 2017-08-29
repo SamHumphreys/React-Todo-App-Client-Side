@@ -1,19 +1,11 @@
 import React from 'react';
-import TodoItemsList from './TodoItemsList';
+import TodoItems from './TodoItems';
 import '../styles/Todo.css'
 
 const Todo = (props) => {
 
-  const showTodo = () => {
-    return (
-      <div onClick={() => props.handleTodoClick(props.data.id)}>
-        {props.data.title} {completedPercent()}
-      </div>
-    );
-  };
-
   const archiveIt = (status) => {
-    return <button onClick={() => props.archiveTodo(props.data.id)}>
+    return <button onClick={() => props.sendIt('ARCHIVE_TODO', {todoId: props.data.id})}>
       {status}
     </button>
   }
@@ -34,10 +26,18 @@ const Todo = (props) => {
     return <span>{percentComplete}% completed!</span>
   };
 
+  const showTodo = () => {
+    return (
+      <div onClick={() => props.handleTodoClick(props.data.id)}>
+        {props.data.title} {completedPercent()}
+      </div>
+    );
+  };
+
   const showItems = () => {
-    return <TodoItemsList data={props.data.todoItems}
+    return <TodoItems todoItems={props.data.todoItems}
                           todoId={props.data.id}
-                          addTodoItem={props.addTodoItem} />
+                          sendIt={props.sendIt} />
   };
 
   if (props.selectedTodo === props.data.id) {

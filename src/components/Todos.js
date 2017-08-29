@@ -10,12 +10,14 @@ export default class Todos extends React.Component {
   };
 
   addTodo () {
-    const newTask = prompt('What is the task to complete?');
-    this.props.addTodo(newTask);
+    const newTodo = prompt('What is the task to complete?');
+    this.props.sendIt('ADD_TODO', {newTodo});
   };
 
   todoSelected (selectedTodo) {
-    if (this.state.selectedTodo !== selectedTodo) {
+    if (this.state.selectedTodo === selectedTodo) {
+      this.setState({selectedTodo: null})
+    } else {
       this.setState({selectedTodo});
     };
   };
@@ -30,9 +32,8 @@ export default class Todos extends React.Component {
             return <Todo key={todo.id}
                       data={todo}
                       handleTodoClick={(id) => this.todoSelected(id)}
-                      addTodoItem={this.props.addTodoItem}
-                      selectedTodo={this.state.selectedTodo}
-                      archiveTodo={this.props.archiveTodo} />
+                      sendIt={this.props.sendIt}
+                      selectedTodo={this.state.selectedTodo} />
         })}
       </div>
     );

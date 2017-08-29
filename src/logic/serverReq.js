@@ -6,7 +6,7 @@ import reqRes from './req-res';
 const serverReq = (action, data, state, callback) => {
   switch (action) {
     case 'GET_TODOS':
-      callback(getTodos());
+      callback(getTodos(callback));
       break;
     default:
       return callback(state);
@@ -15,13 +15,12 @@ const serverReq = (action, data, state, callback) => {
 
 export default serverReq;
 
-const getTodos = () => {
+const getTodos = (callback) => {
   const path = 'http://localhost:8000/api/todos';
   reqRes.get(path, (todos) => {
     todos.sort((a,b) => {
       return a.id - b.id
     });
-    console.log(todos);
-    return todos;
+    return callback(todos);
   });
 }

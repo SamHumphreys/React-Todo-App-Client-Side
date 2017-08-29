@@ -63,14 +63,19 @@ class App extends React.Component {
   };
 
   queryServer (action, data) {
-    serverReq(action, data, this.state, (newTodos) => {
-      console.log('serverReq', newTodos);
+    console.log(action, data);
+    serverReq(action, data, this.state.todos, (newTodos) => {
+      console.log('from server', newTodos);
+      console.log('state', this.state);
       if (newTodos === this.state.todos) return;
-      this.setState({todos: newTodos});
+      this.setState({todos: newTodos}, () => {
+        console.log('refreshed state', this.state);
+      });
     });
   };
 
   render () {
+    console.log('render', this.state);
     if (this.state.todos) {
       return (
         <Todos todos={this.state.todos}

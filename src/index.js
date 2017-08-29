@@ -27,8 +27,8 @@ class App extends React.Component {
     const method = 'POST';
     const payload = 'title=' + newTodo;
     reqRes.request (path, method, payload, (newTodo) => {
-      const arrNewTodo = [newTodo];
-      const newStateTodos = this.state.todos.concat(arrNewTodo);
+      let newStateTodos = JSON.parse(JSON.stringify(this.state.todos));
+      newStateTodos.push(newTodo);
       this.setState({todos: newStateTodos});
     });
   };
@@ -38,21 +38,36 @@ class App extends React.Component {
     const method = 'PUT';
     const payload = 'archived=true';
     reqRes.request(path, method, payload, (updatedTodo) => {
-      const stateTodos = this.state.todos.concat();
+      const stateTodos = JSON.parse(JSON.stringify(this.state.todos));
       const updatedIndex = stateTodos.findIndex((element) => {
         return element.id === updatedTodo.id;
       });
       stateTodos[updatedIndex] = updatedTodo;
       this.setState({todos: stateTodos});
-    })
-  }
+    });
+  };
+
+  addTodoItem (id, itemText) {
+    const path = ':8000/api/todos/' + id + '/items';
+    const method = 'POST';
+    const payload = 'content=' + itemText;
+    reqRes.request(path, method, payload, (todoItem) => {
+      const stateTodos = JSON.parse(JSON.stringify(this.state.todos));
+      const todoIndex = stateTodos.findIndex((element) => {
+        return element.id === todoItem.todoId;
+      });
+      stateTodos[todoIndex].todoItems.push(todoItem);
+      this.setState({todos: stateTodos});
+    });
+  };
 
   render () {
     if (this.state.todos) {
       return (
         <Todos todos={this.state.todos}
                 addTodo={(newTodo) => this.addTodo(newTodo)}
-                archiveTodo={(id) => this.archiveTodo(id)} />
+                archiveTodo={(id) => this.archiveTodo(id)}
+                addTodoItem={(id, itemText) => this.addTodoItem(id, itemText)} />
       );
     } else {
       return (

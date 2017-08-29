@@ -1,8 +1,8 @@
 import React from 'react';
+import TodoItemsList from './TodoItemsList';
 import '../styles/Todo.css'
 
 const Todo = (props) => {
-  console.log(props);
 
   const showTodo = () => {
     return (
@@ -35,11 +35,12 @@ const Todo = (props) => {
   };
 
   const showItems = () => {
-    return <div>Items</div>;
+    return <TodoItemsList data={props.data.todoItems}
+                          todoId={props.data.id}
+                          addTodoItem={props.addTodoItem} />
   };
 
   if (props.selectedTodo === props.data.id) {
-    console.log(props);
     return (
       <div className={'todo' + ((props.data.archived) ? ' archived-todo': '')}>
         {showTodo()}

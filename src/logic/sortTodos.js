@@ -1,11 +1,26 @@
 const sortTodos = (todos) => {
-  todos.sort((a,b) => {
+  let active = [];
+  let archived = [];
+
+  todos.forEach((item) => {
+    if (item.archived) {
+      archived.push(item);
+    } else {
+      active.push(item);
+    };
+  });
+
+  active.sort((a,b) => {
     return a.id - b.id;
   });
-  todos.sort((a,b) => {
-    return a.archived - b.archived;
+
+  archived.sort((a,b) => {
+    return a.id - b.id;
   });
-  return todos;
+
+  const sortedTodos = active.concat(archived);
+
+  return sortedTodos;
 };
 
 export default sortTodos;

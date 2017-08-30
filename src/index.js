@@ -15,20 +15,6 @@ class App extends React.Component {
     this.queryServer('GET_TODOS', null);
   };
 
-  archiveTodo (id) {
-    // const path = ':8000/api/todos/' + id;
-    // const method = 'PUT';
-    // const payload = 'archived=true';
-    // reqRes.request(path, method, payload, (updatedTodo) => {
-    //   const stateTodos = JSON.parse(JSON.stringify(this.state.todos));
-    //   const updatedIndex = stateTodos.findIndex((element) => {
-    //     return element.id === updatedTodo.id;
-    //   });
-    //   stateTodos[updatedIndex] = updatedTodo;
-    //   this.setState({todos: stateTodos});
-    // });
-  };
-
   addTodoItem (id, itemText) {
     // const path = ':8000/api/todos/' + id + '/items';
     // const method = 'POST';
@@ -46,10 +32,10 @@ class App extends React.Component {
   queryServer (action, data) {
     console.log(action, data);
     serverReq(action, data, this.state.todos, (newTodos) => {
-      console.log('from server', newTodos);
-      console.log('state', this.state);
-      if (newTodos === this.state.todos) return;
-      this.setState({todos: newTodos});
+      if (newTodos === this.state.todos || newTodos === undefined) return;
+      this.setState({todos: newTodos}, () => {
+        console.log('state after queryServer update', this.state);
+      });
     });
   };
 
@@ -59,7 +45,6 @@ class App extends React.Component {
       return (
         <Todos todos={this.state.todos}
                 sendIt={(action, data) => this.queryServer(action, data)}
-                archiveTodo={(id) => this.archiveTodo(id)}
                 addTodoItem={(id, itemText) => this.addTodoItem(id, itemText)} />
       );
     } else {

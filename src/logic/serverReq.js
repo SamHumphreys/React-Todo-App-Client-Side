@@ -15,6 +15,9 @@ const serverReq = (action, data, state, callback) => {
     case 'ARCHIVE_TODO':
       callback(archiveTodo(state, data, callback));
       break;
+    case 'ADD_ITEM':
+      callback(addItem(state, data, callback));
+      break;
     default:
       return callback(state);
   }
@@ -37,8 +40,8 @@ const addTodo = (state, data, callback) => {
   reqRes.request (path, method, payload, (newTodo) => {
     let newStateTodos = JSON.parse(JSON.stringify(state));
     newStateTodos.push(newTodo);
-    newStateTodos = sortTodos(newStateTodos);
-    return callback(newStateTodos);
+    const sortedTodos = sortTodos(newStateTodos);
+    return callback(sortedTodos);
   });
 };
 
@@ -52,7 +55,23 @@ const archiveTodo = (state, data, callback) => {
       return element.id === updatedTodo.id
     });
     newStateTodos[updatedIndex] = updatedTodo;
-    newStateTodos = sortTodos(newStateTodos);
-    return callback(newStateTodos);
+    const sortedTodos = sortTodos(newStateTodos);
+    return callback(sortedTodos);
   });
-}
+};
+
+const addItem = (state, data, callback) => {
+  //ADD_ITEM {todoId: 80, itemText: "hello"}
+  const path = ':8000/api/todos/' + data.todoId +'/items';
+  const method = 'POST';
+  const payload = 'content=' + data.itemText;
+  reqRes.request(path, method, payload, (newItem) => {
+    let newStateTodos = JSON.parse(JSON.stringify(state));
+    const updateTodoIndex = newStateTodos.findIndex((element) => {
+      return element.id === newItem.todoId;
+    });
+    newStateTodos[updateTodoIndex].todoItems.push(newItem);
+    const sortedTodos = sortTodos(newStateTodos);
+    return callback(sortedTodos);
+  });
+};

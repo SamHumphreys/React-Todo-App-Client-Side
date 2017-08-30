@@ -2,8 +2,6 @@ import React from 'react';
 
 const TodoItem = (props) => {
 
-  console.log(props);
-
   const itemStatus = () => {
     if (props.todoItem.complete) {
       return <span>Done!</span>
@@ -16,7 +14,7 @@ const TodoItem = (props) => {
       )
     }
   };
-  
+
 
   return (
     <div className={'todo-item' + (props.todoItem.complete ? ' archived-item': '')}>

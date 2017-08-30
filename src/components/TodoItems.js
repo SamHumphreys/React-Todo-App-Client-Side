@@ -13,7 +13,9 @@ const TodoItems = (props) => {
 
   return (
     <div className='todo-items-list'>
-      <button onClick={() => addItem()}>Add step...</button>
+      {!props.archived ?
+        <button onClick={() => addItem()}>Add step...</button> : ''
+      }
       {props.todoItems.sort((a,b) => {
         return a.complete - b.complete
       }).map((item) => {

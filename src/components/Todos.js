@@ -11,7 +11,9 @@ export default class Todos extends React.Component {
 
   addTodo () {
     const newTodo = prompt('What is the task to complete?');
-    this.props.sendIt('ADD_TODO', {newTodo});
+    if (newTodo) {
+      this.props.sendIt('ADD_TODO', {newTodo});
+    };
   };
 
   todoSelected (selectedTodo) {
@@ -26,9 +28,11 @@ export default class Todos extends React.Component {
     return (
       <div className='todos-list'>
         <button onClick={() => this.addTodo()}>Add a task...</button>
-        {this.props.todos.sort((a,b) => {
-          return a.archived - b.archived;
-        }).map((todo) => {
+        {this.props.todos
+        //   .sort((a,b) => {
+        //   return a.archived - b.archived;
+        // })
+        .map((todo) => {
             return <Todo key={todo.id}
                       data={todo}
                       handleTodoClick={(id) => this.todoSelected(id)}

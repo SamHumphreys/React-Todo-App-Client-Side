@@ -7,8 +7,9 @@ const TodoItem = (props) => {
       return <span>Done!</span>
     } else {
       return (
-        <button onClick={() => props.sendIt('ARCHIVE_ITEM', {todoId: props.todoItem.todoId,
-                                                        itemId: props.todoItem.id})}>
+        <button onClick={() => props.sendIt('ARCHIVE_ITEM',
+                                                {todoId: props.todoItem.todoId,
+                                                itemId: props.todoItem.id})}>
           Archive?
         </button>
       )

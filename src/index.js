@@ -15,20 +15,6 @@ class App extends React.Component {
     this.queryServer('GET_TODOS', null);
   };
 
-  addTodoItem (id, itemText) {
-    // const path = ':8000/api/todos/' + id + '/items';
-    // const method = 'POST';
-    // const payload = 'content=' + itemText;
-    // reqRes.request(path, method, payload, (todoItem) => {
-    //   const stateTodos = JSON.parse(JSON.stringify(this.state.todos));
-    //   const todoIndex = stateTodos.findIndex((element) => {
-    //     return element.id === todoItem.todoId;
-    //   });
-    //   stateTodos[todoIndex].todoItems.push(todoItem);
-    //   this.setState({todos: stateTodos});
-    // });
-  };
-
   queryServer (action, data) {
     console.log(action, data);
     serverReq(action, data, this.state.todos, (newTodos) => {
@@ -44,8 +30,7 @@ class App extends React.Component {
     if (this.state.todos) {
       return (
         <Todos todos={this.state.todos}
-                sendIt={(action, data) => this.queryServer(action, data)}
-                addTodoItem={(id, itemText) => this.addTodoItem(id, itemText)} />
+                sendIt={(action, data) => this.queryServer(action, data)} />
       );
     } else {
       return (

@@ -28,11 +28,8 @@ export default class Todos extends React.Component {
     return (
       <div className='todos-list'>
         <button onClick={() => this.addTodo()}>Add a task...</button>
-        {this.props.todos
-        //   .sort((a,b) => {
-        //   return a.archived - b.archived;
-        // })
-        .map((todo) => {
+        <button>show active</button>
+        {this.props.todos.map((todo) => {
             return <Todo key={todo.id}
                       data={todo}
                       handleTodoClick={(id) => this.todoSelected(id)}

@@ -7,7 +7,9 @@ class App extends React.Component {
   constructor () {
     super ();
     this.state = {
-      todos: null
+      todos: null,
+      selectedTodo: null,
+      showActive: 'all'
     }
   };
 

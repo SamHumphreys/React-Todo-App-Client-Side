@@ -11,7 +11,7 @@ const Todo = (props) => {
   }
 
   const completedPercent = () => {
-    if (props.data.archived) return <span>Archived</span>;
+    if (props.data.archived) return <span>*Archived*</span>;
     if (!props.data.todoItems.length) {
       return <span>No steps for this task... {archiveIt('Archive?')}</span>;
     };
@@ -23,7 +23,7 @@ const Todo = (props) => {
     if (percentComplete === 100) {
       return archiveIt('Looks like this is done! Archive?');
     }
-    return <span>{percentComplete}% completed!</span>
+    return <span>({percentComplete}% completed...)</span>
   };
 
   const showTodo = () => {

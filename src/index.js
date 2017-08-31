@@ -16,17 +16,14 @@ class App extends React.Component {
   };
 
   queryServer (action, data) {
-    console.log(action, data);
     serverReq(action, data, this.state.todos, (newTodos) => {
       if (newTodos === this.state.todos || newTodos === undefined) return;
       this.setState({todos: newTodos}, () => {
-        console.log('state after queryServer update', this.state);
       });
     });
   };
 
   render () {
-    console.log('render', this.state);
     if (this.state.todos) {
       return (
         <Todos todos={this.state.todos}

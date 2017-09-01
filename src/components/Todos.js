@@ -32,9 +32,9 @@ export default class Todos extends React.Component {
         {this.props.todos.map((todo) => {
             return <Todo key={todo.id}
                       data={todo}
-                      handleTodoClick={(id) => this.todoSelected(id)}
+                      handleTodoClick={this.props.handleTodoClick}
                       sendIt={this.props.sendIt}
-                      selectedTodo={this.state.selectedTodo} />
+                      selectedTodo={this.props.selectedTodo} />
         })}
       </div>
     );

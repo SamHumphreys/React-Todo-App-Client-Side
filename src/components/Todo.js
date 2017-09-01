@@ -35,10 +35,11 @@ const Todo = (props) => {
   };
 
   const showItems = () => {
-    return <TodoItems todoItems={props.data.todoItems}
-                          todoId={props.data.id}
-                          archived={props.data.archived}
-                          sendIt={props.sendIt} />
+    return <TodoItems
+              todoItems={props.data.todoItems}
+              todoId={props.data.id}
+              archived={props.data.archived}
+              sendIt={props.sendIt} />
   };
 
   if (props.selectedTodo === props.data.id) {

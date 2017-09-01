@@ -28,8 +28,13 @@ class App extends React.Component {
   render () {
     if (this.state.todos) {
       return (
-        <Todos todos={this.state.todos}
-                sendIt={(action, data) => this.queryServer(action, data)} />
+        <Todos
+          todos={this.state.todos}
+          sendIt={(action, data) => this.queryServer(action, data)}
+          handleTodoClick={(id) => this.setState(this.state.selectedTodo ?
+                                                  {selectedTodo: null} :
+                                                  {selectedTodo:id})}
+          selectedTodo={this.state.selectedTodo} />
       );
     } else {
       return (

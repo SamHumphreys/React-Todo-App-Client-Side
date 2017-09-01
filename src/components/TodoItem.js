@@ -16,7 +16,6 @@ const TodoItem = (props) => {
     }
   };
 
-
   return (
     <div className={'todo-item' + (props.todoItem.complete ? ' archived-item': '')}>
       {props.todoItem.content}

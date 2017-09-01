@@ -16,9 +16,7 @@ const TodoItems = (props) => {
       {!props.archived ?
         <button onClick={() => addItem()}>Add step...</button> : ''
       }
-      {props.todoItems.sort((a,b) => {
-        return a.complete - b.complete
-      }).map((item) => {
+      {props.todoItems.map((item) => {
         return <TodoItem key={item.id}
                           todoItem={item}
                           sendIt={props.sendIt} />

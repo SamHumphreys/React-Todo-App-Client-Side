@@ -35,7 +35,7 @@ class App extends React.Component {
         <Todos
           todos={this.state.todos}
           sendIt={(action, data) => this.queryServer(action, data)}
-          handleTodoClick={(id) => this.setState(this.state.selectedTodo ?
+          handleTodoClick={(id) => this.setState(this.state.selectedTodo === id ?
                                                   {selectedTodo: null} :
                                                   {selectedTodo:id})}
           selectedTodo={this.state.selectedTodo}

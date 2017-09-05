@@ -32,9 +32,15 @@ const getTodos = (callback) => {
   const path = 'http://localhost:8000/api/todos';
   reqRes.get(path, (todos) => {
     const sortedTodos = sortTodos(todos);
+    let totalActive = 0;
+    sortedTodos.forEach((todo) => {
+      if (!todo.archived) {
+        totalActive ++;
+      };
+    });
     const newState = {
       todos: sortedTodos,
-      selectedTodo: null,
+      selectedTodo: totalActive === 1 ? sortedTodos[0].id : null,
       showActive: 'all'
     }
     return callback(newState);

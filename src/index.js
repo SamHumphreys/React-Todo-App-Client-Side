@@ -17,6 +17,10 @@ class App extends React.Component {
     this.queryServer('GET_TODOS', null);
   };
 
+  // handleShowActiveClick () {
+  //   console.log('show active clicked');
+  // };
+
   queryServer (action, data) {
     serverReq(action, data, this.state, (newState) => {
       if (newState === this.state || newState === undefined) return;
@@ -34,7 +38,11 @@ class App extends React.Component {
           handleTodoClick={(id) => this.setState(this.state.selectedTodo ?
                                                   {selectedTodo: null} :
                                                   {selectedTodo:id})}
-          selectedTodo={this.state.selectedTodo} />
+          selectedTodo={this.state.selectedTodo}
+          handleShowActiveClick={() => this.setState(this.state.showActive === 'all' ?
+                                                      {showActive: 'active'} :
+                                                      {showActive: 'all'})}
+          showActive={this.state.showActive} />
       );
     } else {
       return (

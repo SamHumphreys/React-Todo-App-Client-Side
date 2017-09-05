@@ -41,7 +41,7 @@ const getTodos = (callback) => {
     const newState = {
       todos: sortedTodos,
       selectedTodo: totalActive === 1 ? sortedTodos[0].id : null,
-      showActive: 'all'
+      showActive: 'active'
     }
     return callback(newState);
   });

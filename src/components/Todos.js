@@ -10,17 +10,32 @@ const Todos = (props) => {
     };
   };
 
+  const selectTodos = () => {
+    let todosToShow = [];
+    if (props.showActive === 'all') {
+      todosToShow = props.todos;
+    } else {
+      props.todos.forEach((todo) => {
+        if (!todo.archived) {
+          todosToShow.push(todo);
+        };
+      });
+    };
+    return todosToShow;
+  };
+
   return (
     <div className='todos-list'>
       <button onClick={() => addTodo()}>Add a task...</button>
-      <button>show active</button>
-      {props.todos.map((todo) => {
-          return <Todo key={todo.id}
-                    data={todo}
-                    handleTodoClick={props.handleTodoClick}
-                    sendIt={props.sendIt}
-                    selectedTodo={props.selectedTodo} />
-      })}
+      <button onClick={() => props.handleShowActiveClick()}>
+        {props.showActive === 'all' ? 'Hide archived tasks': 'Show archived tasks'}
+      </button>
+      {selectTodos().map((todo) => {
+        return <Todo key={todo.id}
+                      data={todo}
+                      handleTodoClick={props.handleTodoClick}
+                      sendIt={props.sendIt}
+                      selectedTodo={props.selectedTodo} />})}
     </div>
   );
 };

@@ -18,9 +18,9 @@ class App extends React.Component {
   };
 
   queryServer (action, data) {
-    serverReq(action, data, this.state.todos, (newTodos) => {
-      if (newTodos === this.state.todos || newTodos === undefined) return;
-      this.setState({todos: newTodos}, () => {
+    serverReq(action, data, this.state, (newState) => {
+      if (newState === this.state || newState === undefined) return;
+      this.setState(newState, () => {
       });
     });
   };

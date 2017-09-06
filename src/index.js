@@ -10,11 +10,13 @@ class App extends React.Component {
       todos: null,
       selectedTodo: null,
       showActive: 'all'
-    }
+    };
+    this.handlekeyPress = this.handlekeyPress.bind(this);
   };
 
   componentWillMount () {
     this.queryServer('GET_TODOS', null);
+    document.addEventListener('keypress', this.handlekeyPress);
   };
 
   // handleShowActiveClick () {
@@ -29,10 +31,16 @@ class App extends React.Component {
     });
   };
 
+  handlekeyPress (e) {
+    e.preventDefault();
+    console.log(e);
+  }
+
   render () {
     if (this.state.todos) {
       return (
         <Todos
+          onKeyPress={this.handlekeyPress}
           todos={this.state.todos}
           sendIt={(action, data) => this.queryServer(action, data)}
           handleTodoClick={(id) => this.setState(this.state.selectedTodo === id ?

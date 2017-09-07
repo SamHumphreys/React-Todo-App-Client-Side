@@ -11,17 +11,12 @@ class App extends React.Component {
       selectedTodo: null,
       showActive: 'all'
     };
-    this.handlekeyPress = this.handlekeyPress.bind(this);
   };
 
   componentWillMount () {
     this.queryServer('GET_TODOS', null);
-    document.addEventListener('keypress', this.handlekeyPress);
+    // document.addEventListener('keypress', this.handlekeyPress);
   };
-
-  // handleShowActiveClick () {
-  //   console.log('show active clicked');
-  // };
 
   queryServer (action, data) {
     serverReq(action, data, this.state, (newState) => {
@@ -31,10 +26,10 @@ class App extends React.Component {
     });
   };
 
-  handlekeyPress (e) {
-    e.preventDefault();
-    console.log(e);
-  }
+  // handlekeyPress (e) {
+  //   e.preventDefault();
+  //   console.log(e);
+  // }
 
   render () {
     if (this.state.todos) {
